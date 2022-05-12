@@ -49,8 +49,9 @@ $listeGraine = $listeGraineRequete->fetchAll();
         }
         ?>
     </table>
+    <a href="exportationCSV.php">Exporter au format CSV</a>
 
-    <h1>Ajouter semences : </h1>
+    <h1>Ajouter une semence : </h1>
     <form action="" method="post">
         <label for="">Nom semence : </label>
         <input type="text" name="name"><br>
@@ -92,7 +93,28 @@ $listeGraine = $listeGraineRequete->fetchAll();
         $ajouterRequete->execute();
         echo "La semence a bien été ajoutée.";
     }
+
+    // Partie requête pour grouper le nom des semences par periode de plantation
+    $periodeRequete = $connexion->prepare("SELECT periodePlantation, GROUP_CONCAT(nom) AS 'Groupement' FROM graines
+    GROUP BY periodePlantation");
+    $periodeRequete->execute();
+    $periode = $periodeRequete->fetchAll();
+
     ?>
+
+    <h2>Calendrier de plantation : </h2>
+    <table>
+        <tr>
+            <td>Période</td>
+            <td>Nom</td>
+        </tr>
+        <?php
+        foreach ($periode as $res) {
+            echo "<tr><td>", $res['periodePlantation'], "</td>";
+            echo "<td>", $res['Groupement'], "</td></tr>";
+        }
+        ?>
+    </table>
 </body>
 
 </html>
