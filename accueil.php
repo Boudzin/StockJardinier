@@ -6,7 +6,7 @@ echo "Bonjour vous êtes connecté en tant que ", $_SESSION['role'], ": ", $_SES
 if ($_SESSION['role'] != "Administrateur") {
     header("Location:login.php");
 }
-//Ici j'effectue ma requete qui me permet de récupérer toutes mes graines
+//Ici j'effectue ma requête  qui me permet de récupérer toutes mes graines
 $listeGraineRequete = $connexion->prepare("SELECT * FROM graines");
 $listeGraineRequete->execute();
 //Ici je recupere toutes mes lignes
@@ -28,8 +28,8 @@ $listeGraine = $listeGraineRequete->fetchAll();
         <tr>
             <td>Nom</td>
             <td>Famille</td>
-            <td>Periode plantation</td>
-            <td>Periode recolte</td>
+            <td>Période de plantation</td>
+            <td>Période récolte</td>
             <td>Conseil jardinage</td>
             <td>Quantité en stock</td>
             <td>Image de la graine</td>
